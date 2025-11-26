@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minimalist Dashboard — Multi-user</title>
+  <link rel="stylesheet" href="test.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="toggleBtn" class="toggle-btn">☰</button>
+    <h1>WEB PROJECT</h1>
+    <div class="spacer"></div>
+
+    <div id="authUi" class="auth-ui">
+      <span id="currentUserDisplay">Not signed in</span>
+      <button id="logoutBtn" class="small-btn" hidden>Logout</button>
+    </div>
+  </header>5
+
+  <div class="container">
+    <aside class="sidebar" id="sidebar">
+      <nav>
+        <ul>55
+          <li data-page="overview">1 — Overview</li>
+          <li data-page="reports">2 — Reports</li>
+          <li data-page="analytics">3 — Analytics</li>
+          <li data-page="settings">4 — Settings</li>
+          <li id="openProfile">5 — Profile</li>
+        </ul>
+      </nav>
+
+      <hr />
+
+      <section class="user-list">
+        <h4>Accounts</h4>
+        <div id="usersContainer"></div>
+        <button id="showRegister" class="small-btn">+ Register user</button>
+      </section>
+    </aside>
+
+    <main class="content">
+      <div class="content-box" id="content">55
+        <h2>Welcome</h2>
+        <p>Content Page — choose a menu item or sign in / register below.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="test.js"></script>
+</body>
+</html>

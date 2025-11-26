@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FISBOK</title>
+    <link rel="stylesheet" href="activity-2.css">
+</head>
+<body>
+    <header class="topbar">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        <h1>FISBOK</h1>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <nav>
+                <ul>
+                    <li onclick="loadPage('overview')">1 — Overview</li>
+                    <li onclick="loadPage('reports')">2 — Reports</li>
+                    <li onclick="loadPage('analytics')">3 — Analytics</li>
+                    <li onclick="loadPage('settings')">4 — Settings</li>
+                    <li onclick="showUserList()">5 — Profiles</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <div class="content-box" id="content">
+                <h2>Welcome</h2>
+                <p>Select a menu item.</p>
+            </div>
+        </main>
+    </div>
+
+<script>
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("collapsed");
+}
+
+function loadPage(page) {
+    document.getElementById("content").innerHTML = `
+        <h2>${page}</h2>
+        <p>This is the ${page} page.</p>`;
+}
+
+function showUserList() {
+    let listHTML = `<h2>All Users</h2><div class='user-list'>`;
+
+    users.forEach((u, index) => {
+        listHTML += `
+            <div class='user-card' onclick='openProfile(${index})'>
+                <img src='${u.avatar}' class='avatar-small'>
+                <p>${u.name}</p>
+            </div>`;
+    });
+
+    listHTML += `</div><button onclick='addUser()' class='save-btn'>Add User</button>`;
+
+    document.getElementById("content").innerHTML = listHTML;
+}
+
+function addUser() {
+    document.getElementById("content").innerHTML = `
+        <h2>Register User</h2>
+        <div class='profile-box'>
+            <img id='avatarPreview' class='avatar' src='https://via.placeholder.com/150'>
+            <input type='file' id='avatarInput' accept='image/*'>
+        </div>
+        <input type='text' id='name' class='input-field' placeholder='Name'>
+        <input type='email' id='email' class='input-field' placeholder='Email'>
+        <button class='save-btn' onclick='saveNewUser()'>Save</button>`;
+
+    setTimeout(() => {
+        document.getElementById("avatarInput").addEventListener("change", e => {
+            const file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onload = ev => {
+                document.getElementById("avatarPreview").src = ev.target.result;
+                document.getElementById("avatarPreview").dataset.base = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }, 50);
+}
+
+function saveNewUser() {
+    if (users.length >= 5) return alert("Max 5 users only.");
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let avatar = document.getElementById("avatarPreview").dataset.base || "https://via.placeholder.com/150";
+
+    users.push({ name, email, avatar });
+    localStorage.setItem("users", JSON.stringify(users));
+    showUserList();
+}
+
+function openProfile(index) {
+    let u = users[index];
+    document.getElementById("content").innerHTML = `
+        <h2>${u.name}</h2>
+        <img src='${u.avatar}' class='avatar-large'>
+        <p>Email: ${u.email}</p>`;
+}
+</script>
+
+</body>
+</html>

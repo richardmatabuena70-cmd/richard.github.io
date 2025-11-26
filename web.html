@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Dashboard</title>
+    <link rel="stylesheet" href="web.css">
+</head>
+<body>
+
+<div class="header">FISBOK</div>
+
+<div class="layout">
+    <aside class="sidebar">
+        <div class="menu-title">Dashboard</div>
+        <button class="menu-btn" onclick="showPage('overview')">Overview</button>
+        <button class="menu-btn" onclick="showPage('reports')">Reports</button>
+        <button class="menu-btn" onclick="showPage('analytics')">Analytics</button>
+        <button class="menu-btn" onclick="showPage('settings')">Settings</button>
+        <button class="menu-btn" onclick="showPage('profile')">Profile</button>
+    </aside>
+
+    <main class="content" id="contentPage">
+        <h2>Welcome</h2>
+        <p>Select a menu item.</p>
+    </main>
+</div>
+
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeProfile()">&times;</span>
+        <div class="profile-container">
+            <img id="profileAvatar" class="profile-avatar">
+            <div class="profile-info">
+                <h3 id="profileName"></h3>
+                <p id="profileEmail"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="web.js"></script>
+</body>
+</html>
